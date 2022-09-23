@@ -26,6 +26,8 @@ _Italic_
 And also some code
 
 ```dart
-void main() => print("Hello, World!");
+void main() {
+  print("Hello, World!");
+}
 ```
 

@@ -52,7 +52,11 @@ Markdown exampleMarkdown() => const Markdown.section(
             Markdown.text(data: ''),
             Markdown.code(
               language: 'dart',
-              data: 'void main() => print("Hello, World!");',
+              data: [
+                'void main() {',
+                '  print("Hello, World!");',
+                '}',
+              ],
             )
           ],
         ),

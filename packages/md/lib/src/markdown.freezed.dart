@@ -22,7 +22,7 @@ mixin _$Markdown {
     required TResult Function(String header, List<Markdown> children) section,
     required TResult Function(ListStyle style, List<Markdown> children) list,
     required TResult Function(String label, String destination) link,
-    required TResult Function(String data, String? language) code,
+    required TResult Function(List<String> data, String? language) code,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -31,7 +31,7 @@ mixin _$Markdown {
     TResult Function(String header, List<Markdown> children)? section,
     TResult Function(ListStyle style, List<Markdown> children)? list,
     TResult Function(String label, String destination)? link,
-    TResult Function(String data, String? language)? code,
+    TResult Function(List<String> data, String? language)? code,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -40,7 +40,7 @@ mixin _$Markdown {
     TResult Function(String header, List<Markdown> children)? section,
     TResult Function(ListStyle style, List<Markdown> children)? list,
     TResult Function(String label, String destination)? link,
-    TResult Function(String data, String? language)? code,
+    TResult Function(List<String> data, String? language)? code,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -167,7 +167,7 @@ class _$MarkdownText implements MarkdownText {
     required TResult Function(String header, List<Markdown> children) section,
     required TResult Function(ListStyle style, List<Markdown> children) list,
     required TResult Function(String label, String destination) link,
-    required TResult Function(String data, String? language) code,
+    required TResult Function(List<String> data, String? language) code,
   }) {
     return text(data, style);
   }
@@ -179,7 +179,7 @@ class _$MarkdownText implements MarkdownText {
     TResult Function(String header, List<Markdown> children)? section,
     TResult Function(ListStyle style, List<Markdown> children)? list,
     TResult Function(String label, String destination)? link,
-    TResult Function(String data, String? language)? code,
+    TResult Function(List<String> data, String? language)? code,
   }) {
     return text?.call(data, style);
   }
@@ -191,7 +191,7 @@ class _$MarkdownText implements MarkdownText {
     TResult Function(String header, List<Markdown> children)? section,
     TResult Function(ListStyle style, List<Markdown> children)? list,
     TResult Function(String label, String destination)? link,
-    TResult Function(String data, String? language)? code,
+    TResult Function(List<String> data, String? language)? code,
     required TResult orElse(),
   }) {
     if (text != null) {
@@ -338,7 +338,7 @@ class _$MarkdownSection implements MarkdownSection {
     required TResult Function(String header, List<Markdown> children) section,
     required TResult Function(ListStyle style, List<Markdown> children) list,
     required TResult Function(String label, String destination) link,
-    required TResult Function(String data, String? language) code,
+    required TResult Function(List<String> data, String? language) code,
   }) {
     return section(header, children);
   }
@@ -350,7 +350,7 @@ class _$MarkdownSection implements MarkdownSection {
     TResult Function(String header, List<Markdown> children)? section,
     TResult Function(ListStyle style, List<Markdown> children)? list,
     TResult Function(String label, String destination)? link,
-    TResult Function(String data, String? language)? code,
+    TResult Function(List<String> data, String? language)? code,
   }) {
     return section?.call(header, children);
   }
@@ -362,7 +362,7 @@ class _$MarkdownSection implements MarkdownSection {
     TResult Function(String header, List<Markdown> children)? section,
     TResult Function(ListStyle style, List<Markdown> children)? list,
     TResult Function(String label, String destination)? link,
-    TResult Function(String data, String? language)? code,
+    TResult Function(List<String> data, String? language)? code,
     required TResult orElse(),
   }) {
     if (section != null) {
@@ -508,7 +508,7 @@ class _$MarkdownList implements MarkdownList {
     required TResult Function(String header, List<Markdown> children) section,
     required TResult Function(ListStyle style, List<Markdown> children) list,
     required TResult Function(String label, String destination) link,
-    required TResult Function(String data, String? language) code,
+    required TResult Function(List<String> data, String? language) code,
   }) {
     return list(style, children);
   }
@@ -520,7 +520,7 @@ class _$MarkdownList implements MarkdownList {
     TResult Function(String header, List<Markdown> children)? section,
     TResult Function(ListStyle style, List<Markdown> children)? list,
     TResult Function(String label, String destination)? link,
-    TResult Function(String data, String? language)? code,
+    TResult Function(List<String> data, String? language)? code,
   }) {
     return list?.call(style, children);
   }
@@ -532,7 +532,7 @@ class _$MarkdownList implements MarkdownList {
     TResult Function(String header, List<Markdown> children)? section,
     TResult Function(ListStyle style, List<Markdown> children)? list,
     TResult Function(String label, String destination)? link,
-    TResult Function(String data, String? language)? code,
+    TResult Function(List<String> data, String? language)? code,
     required TResult orElse(),
   }) {
     if (list != null) {
@@ -673,7 +673,7 @@ class _$MarkdownLink implements MarkdownLink {
     required TResult Function(String header, List<Markdown> children) section,
     required TResult Function(ListStyle style, List<Markdown> children) list,
     required TResult Function(String label, String destination) link,
-    required TResult Function(String data, String? language) code,
+    required TResult Function(List<String> data, String? language) code,
   }) {
     return link(label, destination);
   }
@@ -685,7 +685,7 @@ class _$MarkdownLink implements MarkdownLink {
     TResult Function(String header, List<Markdown> children)? section,
     TResult Function(ListStyle style, List<Markdown> children)? list,
     TResult Function(String label, String destination)? link,
-    TResult Function(String data, String? language)? code,
+    TResult Function(List<String> data, String? language)? code,
   }) {
     return link?.call(label, destination);
   }
@@ -697,7 +697,7 @@ class _$MarkdownLink implements MarkdownLink {
     TResult Function(String header, List<Markdown> children)? section,
     TResult Function(ListStyle style, List<Markdown> children)? list,
     TResult Function(String label, String destination)? link,
-    TResult Function(String data, String? language)? code,
+    TResult Function(List<String> data, String? language)? code,
     required TResult orElse(),
   }) {
     if (link != null) {
@@ -764,7 +764,7 @@ abstract class _$$MarkdownCodeCopyWith<$Res> {
   factory _$$MarkdownCodeCopyWith(
           _$MarkdownCode value, $Res Function(_$MarkdownCode) then) =
       __$$MarkdownCodeCopyWithImpl<$Res>;
-  $Res call({String data, String? language});
+  $Res call({List<String> data, String? language});
 }
 
 /// @nodoc
@@ -784,9 +784,9 @@ class __$$MarkdownCodeCopyWithImpl<$Res> extends _$MarkdownCopyWithImpl<$Res>
   }) {
     return _then(_$MarkdownCode(
       data: data == freezed
-          ? _value.data
+          ? _value._data
           : data // ignore: cast_nullable_to_non_nullable
-              as String,
+              as List<String>,
       language: language == freezed
           ? _value.language
           : language // ignore: cast_nullable_to_non_nullable
@@ -798,10 +798,16 @@ class __$$MarkdownCodeCopyWithImpl<$Res> extends _$MarkdownCopyWithImpl<$Res>
 /// @nodoc
 
 class _$MarkdownCode implements MarkdownCode {
-  const _$MarkdownCode({required this.data, this.language});
+  const _$MarkdownCode({required final List<String> data, this.language})
+      : _data = data;
 
+  final List<String> _data;
   @override
-  final String data;
+  List<String> get data {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_data);
+  }
+
   @override
   final String? language;
 
@@ -815,14 +821,14 @@ class _$MarkdownCode implements MarkdownCode {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$MarkdownCode &&
-            const DeepCollectionEquality().equals(other.data, data) &&
+            const DeepCollectionEquality().equals(other._data, _data) &&
             const DeepCollectionEquality().equals(other.language, language));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(data),
+      const DeepCollectionEquality().hash(_data),
       const DeepCollectionEquality().hash(language));
 
   @JsonKey(ignore: true)
@@ -837,7 +843,7 @@ class _$MarkdownCode implements MarkdownCode {
     required TResult Function(String header, List<Markdown> children) section,
     required TResult Function(ListStyle style, List<Markdown> children) list,
     required TResult Function(String label, String destination) link,
-    required TResult Function(String data, String? language) code,
+    required TResult Function(List<String> data, String? language) code,
   }) {
     return code(data, language);
   }
@@ -849,7 +855,7 @@ class _$MarkdownCode implements MarkdownCode {
     TResult Function(String header, List<Markdown> children)? section,
     TResult Function(ListStyle style, List<Markdown> children)? list,
     TResult Function(String label, String destination)? link,
-    TResult Function(String data, String? language)? code,
+    TResult Function(List<String> data, String? language)? code,
   }) {
     return code?.call(data, language);
   }
@@ -861,7 +867,7 @@ class _$MarkdownCode implements MarkdownCode {
     TResult Function(String header, List<Markdown> children)? section,
     TResult Function(ListStyle style, List<Markdown> children)? list,
     TResult Function(String label, String destination)? link,
-    TResult Function(String data, String? language)? code,
+    TResult Function(List<String> data, String? language)? code,
     required TResult orElse(),
   }) {
     if (code != null) {
@@ -913,9 +919,10 @@ class _$MarkdownCode implements MarkdownCode {
 
 abstract class MarkdownCode implements Markdown {
   const factory MarkdownCode(
-      {required final String data, final String? language}) = _$MarkdownCode;
+      {required final List<String> data,
+      final String? language}) = _$MarkdownCode;
 
-  String get data;
+  List<String> get data;
   String? get language;
   @JsonKey(ignore: true)
   _$$MarkdownCodeCopyWith<_$MarkdownCode> get copyWith =>
