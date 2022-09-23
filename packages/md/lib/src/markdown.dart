@@ -40,7 +40,7 @@ class Markdown with _$Markdown {
   }) = MarkdownLink;
 
   const factory Markdown.code({
-    required String data,
+    required List<String> data,
     String? language,
   }) = MarkdownCode;
 }

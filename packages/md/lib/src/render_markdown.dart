@@ -95,17 +95,18 @@ Iterable<Object> _renderLink(
     );
 
 Iterable<String> _renderCode(
-  String code,
+  List<String> code,
   String? language,
-) =>
-    [
-      '```',
-      if (language != null) language,
-      '\n',
-      code,
-      '\n',
-      '```',
-    ];
+) sync* {
+  yield '```';
+  if (language != null) yield language;
+  yield '\n';
+  for (final line in code) {
+    yield line;
+    yield '\n';
+  }
+  yield '```';
+}
 
 Iterable<Object> _render(Context context, Markdown node) => node.when(
       text: _renderText.apply(context),
