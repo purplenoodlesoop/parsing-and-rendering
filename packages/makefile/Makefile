@@ -1,4 +1,4 @@
-.PHONY: hello
+.PHONY: hello helloWorldAndJeff
 
 world = World
 
@@ -10,3 +10,10 @@ hello:
 	@echo "Hello"
 	@echo ","
 	@echo world
+
+# Multi
+# Line
+# Comment
+helloWorldAndJeff: hello
+	@echo "and Jeff"
+

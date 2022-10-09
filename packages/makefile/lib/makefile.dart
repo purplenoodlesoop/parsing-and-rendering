@@ -1,8 +1,4 @@
-/// Support for doing something awesome.
-///
-/// More dartdocs go here.
 library makefile;
 
-export 'src/makefile_base.dart';
-
-// TODO: Export any libraries intended for clients of this package.
+export 'src/makefile.dart';
+export 'src/makefile_parser.dart';
