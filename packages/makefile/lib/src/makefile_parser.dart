@@ -4,7 +4,6 @@ import 'dart:async';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:makefile/src/makefile.dart';
-import 'package:shared/shared.dart';
 
 part 'makefile_parser.freezed.dart';
 
@@ -82,8 +81,7 @@ mixin _Qualifier {
   static String target = ':';
 }
 
-class MakefileParser
-    extends RedirectingStreamTransformer<String, MakefileEntry> {
+class MakefileParser extends StreamTransformerBase<String, MakefileEntry> {
   const MakefileParser();
 
   static String _trim(String source) => source.trim();
@@ -109,15 +107,37 @@ class MakefileParser
   }
 
   @override
-  Translator<String, MakefileEntry> createTranslator() {
+  Stream<MakefileEntry> bind(Stream<String> stream) {
     final context = _Context();
+    StreamSubscription<String>? subscription;
 
-    void finishEntry(EventSink<MakefileEntry> sink) {
-      sink.add(_assembleEntry(context.state));
+    void onPause() {
+      subscription?.pause();
+    }
+
+    void onResume() {
+      subscription?.resume();
+    }
+
+    final controller = stream.isBroadcast
+        ? StreamController<MakefileEntry>.broadcast(sync: true)
+        : StreamController<MakefileEntry>(
+            sync: true,
+            onPause: onPause,
+            onResume: onResume,
+          );
+
+    void finishEntry() {
+      controller.add(_assembleEntry(context.state));
       context.cleanState();
     }
 
-    return (line, sink) {
+    Future<void> onCancel() async {
+      await subscription?.cancel();
+      await controller.close();
+    }
+
+    void listener(String line) {
       if (line.isNotEmpty) {
         final type = context.state.type;
         final trimmed = line.trim();
@@ -126,10 +146,10 @@ class MakefileParser
         final isVariable = contains(_Qualifier.variable);
         final isTarget = contains(_Qualifier.target);
         if (type != null && (isComment || isVariable || isTarget)) {
-          finishEntry(sink);
+          finishEntry();
         }
         if (isComment) {
-          context.addComment(trimmed.replaceAll(_Qualifier.comment, ''));
+          context.addComment(trimmed.replaceAll(_Qualifier.comment, '').trim());
         } else if (isVariable) {
           final parts = _extractParts(_Qualifier.variable, trimmed);
           context
@@ -146,6 +166,25 @@ class MakefileParser
           context.addRecipe(trimmed);
         }
       }
-    };
+    }
+
+    void onDone() {
+      finishEntry();
+      onCancel();
+    }
+
+    void onListen() {
+      subscription = stream.listen(
+        listener,
+        onDone: onDone,
+        onError: controller.addError,
+      );
+    }
+
+    controller
+      ..onListen = onListen
+      ..onCancel = onCancel;
+
+    return controller.stream;
   }
 }

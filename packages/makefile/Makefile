@@ -1,4 +1,4 @@
-.PHONY: hello
+.PHONY: hello helloWorldAndJeff
 
 world = World
 
