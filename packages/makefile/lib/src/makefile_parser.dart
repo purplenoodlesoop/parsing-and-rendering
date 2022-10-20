@@ -4,11 +4,18 @@ import 'package:makefile/src/entry_type.dart';
 import 'package:makefile/src/makefile.dart';
 import 'package:makefile/src/parsing_context.dart';
 import 'package:makefile/src/qualifier.dart';
+import 'package:pure/pure.dart';
+
+/// - All equals
+/// - `include`
+/// - if else then
+/// - variables with bodies
+/// - define
 
 class MakefileParser extends StreamTransformerBase<String, MakefileEntry> {
   const MakefileParser();
 
-  static Iterable<String> _extractParts(String qualifier, String line) =>
+  static Iterable<String> _extractParts(Pattern qualifier, String line) =>
       line.split(qualifier).map((source) => source.trim());
 
   @override
@@ -41,7 +48,7 @@ class MakefileParser extends StreamTransformerBase<String, MakefileEntry> {
       final type = context.state.type;
       final contains = line.contains;
       final isComment = line.startsWith(Qualifier.comment);
-      final isVariable = contains(Qualifier.variable);
+      final isVariable = Qualifier.variable.map(contains).any(id);
       final isTarget = contains(Qualifier.target);
       if (type != null && (isComment || isVariable || isTarget)) {
         finishEntry();
@@ -49,7 +56,14 @@ class MakefileParser extends StreamTransformerBase<String, MakefileEntry> {
       if (isComment) {
         context.addComment(line.replaceAll(Qualifier.comment, '').trim());
       } else if (isVariable) {
-        final parts = _extractParts(Qualifier.variable, line);
+        final parts = _extractParts(
+          RegExp(
+            Qualifier.variable
+                .map((e) => e.startsWith(RegExp(r'\?|\+')) ? '\\$e' : e)
+                .join('|'),
+          ),
+          line,
+        );
         context
           ..setType(EntryType.variable)
           ..setName(parts.elementAt(0))
