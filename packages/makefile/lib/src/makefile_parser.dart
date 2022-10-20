@@ -52,28 +52,43 @@ class MakefileParser extends StreamTransformerBase<String, MakefileEntry> {
       final isInclude = startsWith(Qualifier.include);
       final isStartOfEntry =
           [isComment, isVariable, isTarget, isInclude].any(id);
+      void workOnParts(
+        Pattern qualifier,
+        EntryType type,
+        void Function(Iterable<String> parts) body,
+      ) {
+        final parts = _extractParts(qualifier, line);
+        context.setType(type);
+        body(parts);
+      }
+
       if (type != null && isStartOfEntry) {
         finishEntry();
       }
       if (isComment) {
         context.addComment(line.replaceAll(Qualifier.comment, '').trim());
       } else if (isVariable) {
-        final parts = _extractParts(Qualifier.variable, line);
-        context
-          ..setType(EntryType.variable)
-          ..setName(parts.elementAt(0))
-          ..setValue(parts.elementAt(1));
+        workOnParts(
+          Qualifier.variable,
+          EntryType.variable,
+          (parts) => context
+            ..setName(parts.elementAt(0))
+            ..setValue(parts.elementAt(1)),
+        );
       } else if (isTarget) {
-        final parts = _extractParts(Qualifier.target, line);
-        context
-          ..setType(EntryType.target)
-          ..setName(parts.elementAt(0))
-          ..setPrerequisites(parts.elementAt(1).split(' '));
+        workOnParts(
+          Qualifier.target,
+          EntryType.target,
+          (parts) => context
+            ..setName(parts.elementAt(0))
+            ..setPrerequisites(parts.elementAt(1).split(' ')),
+        );
       } else if (isInclude) {
-        final parts = _extractParts(Qualifier.include, line);
-        context
-          ..setType(EntryType.include)
-          ..setIncludeParts(parts.last.split(' '));
+        workOnParts(
+          Qualifier.include,
+          EntryType.include,
+          (parts) => context.setIncludeParts(parts.last.split(' ')),
+        );
       } else if (type == EntryType.target) {
         context.addRecipe(line);
       }
