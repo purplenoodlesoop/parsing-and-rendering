@@ -21,6 +21,7 @@ mixin _$ParserState {
   String? get value => throw _privateConstructorUsedError;
   List<String> get prerequisites => throw _privateConstructorUsedError;
   List<String> get recipe => throw _privateConstructorUsedError;
+  List<String> get includeParts => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ParserStateCopyWith<ParserState> get copyWith =>
@@ -37,7 +38,8 @@ abstract class $ParserStateCopyWith<$Res> {
       MetaInfo? info,
       String? value,
       List<String> prerequisites,
-      List<String> recipe});
+      List<String> recipe,
+      List<String> includeParts});
 
   $MetaInfoCopyWith<$Res>? get info;
 }
@@ -57,6 +59,7 @@ class _$ParserStateCopyWithImpl<$Res> implements $ParserStateCopyWith<$Res> {
     Object? value = freezed,
     Object? prerequisites = freezed,
     Object? recipe = freezed,
+    Object? includeParts = freezed,
   }) {
     return _then(_value.copyWith(
       type: type == freezed
@@ -78,6 +81,10 @@ class _$ParserStateCopyWithImpl<$Res> implements $ParserStateCopyWith<$Res> {
       recipe: recipe == freezed
           ? _value.recipe
           : recipe // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      includeParts: includeParts == freezed
+          ? _value.includeParts
+          : includeParts // ignore: cast_nullable_to_non_nullable
               as List<String>,
     ));
   }
@@ -106,7 +113,8 @@ abstract class _$$_ParserStateCopyWith<$Res>
       MetaInfo? info,
       String? value,
       List<String> prerequisites,
-      List<String> recipe});
+      List<String> recipe,
+      List<String> includeParts});
 
   @override
   $MetaInfoCopyWith<$Res>? get info;
@@ -129,6 +137,7 @@ class __$$_ParserStateCopyWithImpl<$Res> extends _$ParserStateCopyWithImpl<$Res>
     Object? value = freezed,
     Object? prerequisites = freezed,
     Object? recipe = freezed,
+    Object? includeParts = freezed,
   }) {
     return _then(_$_ParserState(
       type: type == freezed
@@ -151,6 +160,10 @@ class __$$_ParserStateCopyWithImpl<$Res> extends _$ParserStateCopyWithImpl<$Res>
           ? _value._recipe
           : recipe // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      includeParts: includeParts == freezed
+          ? _value._includeParts
+          : includeParts // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -163,9 +176,11 @@ class _$_ParserState implements _ParserState {
       this.info,
       this.value,
       final List<String> prerequisites = const <String>[],
-      final List<String> recipe = const <String>[]})
+      final List<String> recipe = const <String>[],
+      final List<String> includeParts = const <String>[]})
       : _prerequisites = prerequisites,
-        _recipe = recipe;
+        _recipe = recipe,
+        _includeParts = includeParts;
 
   @override
   final EntryType? type;
@@ -189,9 +204,17 @@ class _$_ParserState implements _ParserState {
     return EqualUnmodifiableListView(_recipe);
   }
 
+  final List<String> _includeParts;
+  @override
+  @JsonKey()
+  List<String> get includeParts {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_includeParts);
+  }
+
   @override
   String toString() {
-    return 'ParserState(type: $type, info: $info, value: $value, prerequisites: $prerequisites, recipe: $recipe)';
+    return 'ParserState(type: $type, info: $info, value: $value, prerequisites: $prerequisites, recipe: $recipe, includeParts: $includeParts)';
   }
 
   @override
@@ -204,7 +227,9 @@ class _$_ParserState implements _ParserState {
             const DeepCollectionEquality().equals(other.value, value) &&
             const DeepCollectionEquality()
                 .equals(other._prerequisites, _prerequisites) &&
-            const DeepCollectionEquality().equals(other._recipe, _recipe));
+            const DeepCollectionEquality().equals(other._recipe, _recipe) &&
+            const DeepCollectionEquality()
+                .equals(other._includeParts, _includeParts));
   }
 
   @override
@@ -214,7 +239,8 @@ class _$_ParserState implements _ParserState {
       const DeepCollectionEquality().hash(info),
       const DeepCollectionEquality().hash(value),
       const DeepCollectionEquality().hash(_prerequisites),
-      const DeepCollectionEquality().hash(_recipe));
+      const DeepCollectionEquality().hash(_recipe),
+      const DeepCollectionEquality().hash(_includeParts));
 
   @JsonKey(ignore: true)
   @override
@@ -228,7 +254,8 @@ abstract class _ParserState implements ParserState {
       final MetaInfo? info,
       final String? value,
       final List<String> prerequisites,
-      final List<String> recipe}) = _$_ParserState;
+      final List<String> recipe,
+      final List<String> includeParts}) = _$_ParserState;
 
   @override
   EntryType? get type;
@@ -240,6 +267,8 @@ abstract class _ParserState implements ParserState {
   List<String> get prerequisites;
   @override
   List<String> get recipe;
+  @override
+  List<String> get includeParts;
   @override
   @JsonKey(ignore: true)
   _$$_ParserStateCopyWith<_$_ParserState> get copyWith =>

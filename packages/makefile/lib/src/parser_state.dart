@@ -12,5 +12,6 @@ class ParserState with _$ParserState {
     String? value,
     @Default(<String>[]) List<String> prerequisites,
     @Default(<String>[]) List<String> recipe,
+    @Default(<String>[]) List<String> includeParts,
   }) = _ParserState;
 }

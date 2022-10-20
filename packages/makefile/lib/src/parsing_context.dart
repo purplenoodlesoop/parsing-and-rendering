@@ -40,6 +40,12 @@ class ParsingContext {
     );
   }
 
+  void setIncludeParts(List<String> parts) {
+    _state = _state.copyWith(
+      includeParts: parts,
+    );
+  }
+
   void addRecipe(String recipe) {
     _state = _state.copyWith(
       recipe: [
@@ -56,17 +62,21 @@ class ParsingContext {
   MakefileEntry assembleEntry() {
     final type = state.type;
     assert(type != null, 'Finished entry without determined context');
-    final info = state.info!;
+    late final info = state.info!;
 
-    return type == EntryType.variable
-        ? MakefileEntry.variable(
-            info: info,
-            value: state.value!,
-          )
-        : MakefileEntry.target(
-            info: info,
-            prerequisites: state.prerequisites,
-            recipe: state.recipe,
-          );
+    return type!.when(
+      variable: () => MakefileEntry.variable(
+        info: info,
+        value: state.value!,
+      ),
+      target: () => MakefileEntry.target(
+        info: info,
+        prerequisites: state.prerequisites,
+        recipe: state.recipe,
+      ),
+      include: () => MakefileEntry.include(
+        parts: state.includeParts,
+      ),
+    );
   }
 }

@@ -5,6 +5,8 @@ world = World
 # This is a variable with a comment attached
 variable := value
 
+-include one two three
+
 # Another attached comment
 hello:
 	@echo "Hello"

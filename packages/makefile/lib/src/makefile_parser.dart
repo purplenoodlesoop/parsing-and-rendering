@@ -6,8 +6,6 @@ import 'package:makefile/src/parsing_context.dart';
 import 'package:makefile/src/qualifier.dart';
 import 'package:pure/pure.dart';
 
-/// - All equals
-/// - `include`
 /// - if else then
 /// - variables with bodies
 /// - define
@@ -47,23 +45,20 @@ class MakefileParser extends StreamTransformerBase<String, MakefileEntry> {
     void processLine(String line) {
       final type = context.state.type;
       final contains = line.contains;
-      final isComment = line.startsWith(Qualifier.comment);
-      final isVariable = Qualifier.variable.map(contains).any(id);
+      final startsWith = line.startsWith;
+      final isComment = startsWith(Qualifier.comment);
+      final isVariable = contains(Qualifier.variable);
       final isTarget = contains(Qualifier.target);
-      if (type != null && (isComment || isVariable || isTarget)) {
+      final isInclude = startsWith(Qualifier.include);
+      final isStartOfEntry =
+          [isComment, isVariable, isTarget, isInclude].any(id);
+      if (type != null && isStartOfEntry) {
         finishEntry();
       }
       if (isComment) {
         context.addComment(line.replaceAll(Qualifier.comment, '').trim());
       } else if (isVariable) {
-        final parts = _extractParts(
-          RegExp(
-            Qualifier.variable
-                .map((e) => e.startsWith(RegExp(r'\?|\+')) ? '\\$e' : e)
-                .join('|'),
-          ),
-          line,
-        );
+        final parts = _extractParts(Qualifier.variable, line);
         context
           ..setType(EntryType.variable)
           ..setName(parts.elementAt(0))
@@ -74,6 +69,11 @@ class MakefileParser extends StreamTransformerBase<String, MakefileEntry> {
           ..setType(EntryType.target)
           ..setName(parts.elementAt(0))
           ..setPrerequisites(parts.elementAt(1).split(' '));
+      } else if (isInclude) {
+        final parts = _extractParts(Qualifier.include, line);
+        context
+          ..setType(EntryType.include)
+          ..setIncludeParts(parts.last.split(' '));
       } else if (type == EntryType.target) {
         context.addRecipe(line);
       }

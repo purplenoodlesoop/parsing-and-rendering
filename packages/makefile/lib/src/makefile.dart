@@ -22,4 +22,8 @@ class MakefileEntry with _$MakefileEntry {
     required List<String> prerequisites,
     required List<String> recipe,
   }) = MakefileEntryTarget;
+
+  const factory MakefileEntry.include({
+    required List<String> parts,
+  }) = MakefileEntryInclude;
 }
