@@ -1,14 +1,19 @@
 import 'dart:async';
 
 import 'package:makefile/src/entry_type.dart';
-import 'package:makefile/src/makefile.dart';
+import 'package:makefile/src/makefile_entry.dart';
 import 'package:makefile/src/parsing_context.dart';
 import 'package:makefile/src/qualifier.dart';
+import 'package:pure/pure.dart';
+
+/// - if else then
+/// - variables with bodies
+/// - define
 
 class MakefileParser extends StreamTransformerBase<String, MakefileEntry> {
   const MakefileParser();
 
-  static Iterable<String> _extractParts(String qualifier, String line) =>
+  static Iterable<String> _extractParts(Pattern qualifier, String line) =>
       line.split(qualifier).map((source) => source.trim());
 
   @override
@@ -24,6 +29,7 @@ class MakefileParser extends StreamTransformerBase<String, MakefileEntry> {
     }
 
     final context = ParsingContext();
+    final setType = context.setType;
     final controller = stream.isBroadcast
         ? StreamController<MakefileEntry>.broadcast(sync: true)
         : StreamController<MakefileEntry>(
@@ -40,28 +46,84 @@ class MakefileParser extends StreamTransformerBase<String, MakefileEntry> {
     void processLine(String line) {
       final type = context.state.type;
       final contains = line.contains;
-      final isComment = line.startsWith(Qualifier.comment);
+      final startsWith = line.startsWith;
+
+      final isComment = startsWith(Qualifier.comment);
       final isVariable = contains(Qualifier.variable);
       final isTarget = contains(Qualifier.target);
-      if (type != null && (isComment || isVariable || isTarget)) {
+      final isInclude = startsWith(Qualifier.include);
+      final isIfeq = startsWith(Qualifier.conditionalIfeq);
+      final isElse = startsWith(Qualifier.conditionalElse);
+      final isEndif = startsWith(Qualifier.conditionalEndif);
+
+      final isStartOfEntry =
+          [isComment, isVariable, isTarget, isInclude, isIfeq].any(id);
+
+      void workOnParts(
+        Pattern qualifier,
+        EntryType type,
+        void Function(Iterable<String> parts) body,
+      ) {
+        setType(type);
+        body(
+          _extractParts(qualifier, line),
+        );
+      }
+
+      if (type != null && isStartOfEntry) {
         finishEntry();
       }
       if (isComment) {
         context.addComment(line.replaceAll(Qualifier.comment, '').trim());
       } else if (isVariable) {
-        final parts = _extractParts(Qualifier.variable, line);
-        context
-          ..setType(EntryType.variable)
-          ..setName(parts.elementAt(0))
-          ..setValue(parts.elementAt(1));
+        workOnParts(
+          Qualifier.variable,
+          EntryType.variable,
+          (parts) => context
+            ..setName(parts.elementAt(0))
+            ..setValue(parts.elementAt(1)),
+        );
       } else if (isTarget) {
-        final parts = _extractParts(Qualifier.target, line);
-        context
-          ..setType(EntryType.target)
-          ..setName(parts.elementAt(0))
-          ..setPrerequisites(parts.elementAt(1).split(' '));
-      } else if (type == EntryType.target) {
-        context.addRecipe(line);
+        workOnParts(
+          Qualifier.target,
+          EntryType.target,
+          (parts) => context
+            ..setName(parts.elementAt(0))
+            ..setPrerequisites(parts.elementAt(1).split(' ')),
+        );
+      } else if (isInclude) {
+        workOnParts(
+          Qualifier.include,
+          EntryType.include,
+          (parts) => context.setIncludeParts(parts.last.split(' ')),
+        );
+      } else if (isIfeq) {
+        workOnParts(
+          Qualifier.conditionalIfeq,
+          EntryType.conditionalIfeq,
+          (parts) {
+            final trimmed = parts.last.trim();
+
+            context.setCondition(
+              trimmed.substring(1, trimmed.length - 1),
+            );
+          },
+        );
+      } else if (isElse) {
+        setType(EntryType.conditionalElse);
+      } else if (isEndif) {
+        setType(EntryType.conditionalEndif);
+      } else {
+        type
+            ?.whenConst<void Function(String)?>(
+              variable: null,
+              target: context.addRecipe,
+              include: null,
+              conditionalIfeq: context.addIfeqLine,
+              conditionalElse: context.addElseLine,
+              conditionalEndif: null,
+            )
+            ?.call(line);
       }
     }
 

@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'makefile.freezed.dart';
+part 'makefile_entry.freezed.dart';
 
 @freezed
 class MetaInfo with _$MetaInfo {
@@ -22,4 +22,14 @@ class MakefileEntry with _$MakefileEntry {
     required List<String> prerequisites,
     required List<String> recipe,
   }) = MakefileEntryTarget;
+
+  const factory MakefileEntry.include({
+    required List<String> parts,
+  }) = MakefileEntryInclude;
+
+  const factory MakefileEntry.conditional({
+    required String condition,
+    required List<String> onIf,
+    required List<String> onElse,
+  }) = MakefileEntryConditional;
 }
