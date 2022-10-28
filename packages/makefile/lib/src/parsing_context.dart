@@ -1,5 +1,5 @@
 import 'package:makefile/src/entry_type.dart';
-import 'package:makefile/src/makefile.dart';
+import 'package:makefile/src/makefile_entry.dart';
 import 'package:makefile/src/parser_state.dart';
 
 class ParsingContext {
@@ -8,6 +8,12 @@ class ParsingContext {
 
   MetaInfo get _currentMeta =>
       state.info ?? const MetaInfo(name: '', comments: []);
+
+  EntryType? get _type => state.type;
+
+  Never _incorrectAssembly() => throw StateError(
+        'Incorrect assembly: cant assemble entry in $_type state',
+      );
 
   void setType(EntryType type) {
     _state = _state.copyWith(type: type);
@@ -48,10 +54,23 @@ class ParsingContext {
 
   void addRecipe(String recipe) {
     _state = _state.copyWith(
-      recipe: [
-        ..._state.recipe,
-        recipe,
-      ],
+      recipe: [..._state.recipe, recipe],
+    );
+  }
+
+  void setCondition(String condition) {
+    _state = _state.copyWith(condition: condition);
+  }
+
+  void addIfeqLine(String line) {
+    _state = _state.copyWith(
+      onIf: [..._state.onIf, line],
+    );
+  }
+
+  void addElseLine(String line) {
+    _state = _state.copyWith(
+      onElse: [..._state.onElse, line],
     );
   }
 
@@ -60,11 +79,10 @@ class ParsingContext {
   }
 
   MakefileEntry assembleEntry() {
-    final type = state.type;
-    assert(type != null, 'Finished entry without determined context');
+    assert(_type != null, 'Finished entry without determined context');
     late final info = state.info!;
 
-    return type!.when(
+    return _type!.when(
       variable: () => MakefileEntry.variable(
         info: info,
         value: state.value!,
@@ -76,6 +94,13 @@ class ParsingContext {
       ),
       include: () => MakefileEntry.include(
         parts: state.includeParts,
+      ),
+      conditionalIfeq: _incorrectAssembly,
+      conditionalElse: _incorrectAssembly,
+      conditionalEndif: () => MakefileEntry.conditional(
+        condition: state.condition!,
+        onIf: state.onIf,
+        onElse: state.onElse,
       ),
     );
   }

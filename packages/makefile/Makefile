@@ -13,6 +13,12 @@ hello:
 	@echo ","
 	@echo world
 
+ifeq (true)        
+    @echo '1'
+else
+    @echo '2'
+endif
+
 # Multi
 # Line
 # Comment

@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:makefile/src/entry_type.dart';
-import 'package:makefile/src/makefile.dart';
+import 'package:makefile/src/makefile_entry.dart';
 import 'package:makefile/src/parsing_context.dart';
 import 'package:makefile/src/qualifier.dart';
 import 'package:pure/pure.dart';
@@ -29,6 +29,7 @@ class MakefileParser extends StreamTransformerBase<String, MakefileEntry> {
     }
 
     final context = ParsingContext();
+    final setType = context.setType;
     final controller = stream.isBroadcast
         ? StreamController<MakefileEntry>.broadcast(sync: true)
         : StreamController<MakefileEntry>(
@@ -46,20 +47,27 @@ class MakefileParser extends StreamTransformerBase<String, MakefileEntry> {
       final type = context.state.type;
       final contains = line.contains;
       final startsWith = line.startsWith;
+
       final isComment = startsWith(Qualifier.comment);
       final isVariable = contains(Qualifier.variable);
       final isTarget = contains(Qualifier.target);
       final isInclude = startsWith(Qualifier.include);
+      final isIfeq = startsWith(Qualifier.conditionalIfeq);
+      final isElse = startsWith(Qualifier.conditionalElse);
+      final isEndif = startsWith(Qualifier.conditionalEndif);
+
       final isStartOfEntry =
-          [isComment, isVariable, isTarget, isInclude].any(id);
+          [isComment, isVariable, isTarget, isInclude, isIfeq].any(id);
+
       void workOnParts(
         Pattern qualifier,
         EntryType type,
         void Function(Iterable<String> parts) body,
       ) {
-        final parts = _extractParts(qualifier, line);
-        context.setType(type);
-        body(parts);
+        setType(type);
+        body(
+          _extractParts(qualifier, line),
+        );
       }
 
       if (type != null && isStartOfEntry) {
@@ -89,8 +97,33 @@ class MakefileParser extends StreamTransformerBase<String, MakefileEntry> {
           EntryType.include,
           (parts) => context.setIncludeParts(parts.last.split(' ')),
         );
-      } else if (type == EntryType.target) {
-        context.addRecipe(line);
+      } else if (isIfeq) {
+        workOnParts(
+          Qualifier.conditionalIfeq,
+          EntryType.conditionalIfeq,
+          (parts) {
+            final trimmed = parts.last.trim();
+
+            context.setCondition(
+              trimmed.substring(1, trimmed.length - 1),
+            );
+          },
+        );
+      } else if (isElse) {
+        setType(EntryType.conditionalElse);
+      } else if (isEndif) {
+        setType(EntryType.conditionalEndif);
+      } else {
+        type
+            ?.whenConst<void Function(String)?>(
+              variable: null,
+              target: context.addRecipe,
+              include: null,
+              conditionalIfeq: context.addIfeqLine,
+              conditionalElse: context.addElseLine,
+              conditionalEndif: null,
+            )
+            ?.call(line);
       }
     }
 

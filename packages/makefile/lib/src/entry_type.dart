@@ -7,4 +7,7 @@ enum EntryType {
   variable,
   target,
   include,
+  conditionalIfeq,
+  conditionalElse,
+  conditionalEndif,
 }

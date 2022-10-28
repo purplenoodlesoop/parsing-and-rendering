@@ -9,9 +9,12 @@ extension Qualifier on Never {
   static const Pattern comment = '#';
   static final Pattern variable = _orPattern(['=', '?=', ':=', '+=']);
   static const Pattern target = ':';
-  static final Pattern include = _orPattern([
+  static final Pattern include = _orPattern(const [
     _include,
     '-$_include',
     's$_include',
   ]);
+  static const Pattern conditionalIfeq = 'ifeq';
+  static const Pattern conditionalElse = 'else';
+  static const Pattern conditionalEndif = 'endif';
 }

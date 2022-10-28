@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'makefile.dart';
+part of 'makefile_entry.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -160,6 +160,9 @@ mixin _$MakefileEntry {
             MetaInfo info, List<String> prerequisites, List<String> recipe)
         target,
     required TResult Function(List<String> parts) include,
+    required TResult Function(
+            String condition, List<String> onIf, List<String> onElse)
+        conditional,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -169,6 +172,8 @@ mixin _$MakefileEntry {
             MetaInfo info, List<String> prerequisites, List<String> recipe)?
         target,
     TResult Function(List<String> parts)? include,
+    TResult Function(String condition, List<String> onIf, List<String> onElse)?
+        conditional,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -178,6 +183,8 @@ mixin _$MakefileEntry {
             MetaInfo info, List<String> prerequisites, List<String> recipe)?
         target,
     TResult Function(List<String> parts)? include,
+    TResult Function(String condition, List<String> onIf, List<String> onElse)?
+        conditional,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -186,6 +193,7 @@ mixin _$MakefileEntry {
     required TResult Function(MakefileEntryVariable value) variable,
     required TResult Function(MakefileEntryTarget value) target,
     required TResult Function(MakefileEntryInclude value) include,
+    required TResult Function(MakefileEntryConditional value) conditional,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -193,6 +201,7 @@ mixin _$MakefileEntry {
     TResult Function(MakefileEntryVariable value)? variable,
     TResult Function(MakefileEntryTarget value)? target,
     TResult Function(MakefileEntryInclude value)? include,
+    TResult Function(MakefileEntryConditional value)? conditional,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -200,6 +209,7 @@ mixin _$MakefileEntry {
     TResult Function(MakefileEntryVariable value)? variable,
     TResult Function(MakefileEntryTarget value)? target,
     TResult Function(MakefileEntryInclude value)? include,
+    TResult Function(MakefileEntryConditional value)? conditional,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -312,6 +322,9 @@ class _$MakefileEntryVariable implements MakefileEntryVariable {
             MetaInfo info, List<String> prerequisites, List<String> recipe)
         target,
     required TResult Function(List<String> parts) include,
+    required TResult Function(
+            String condition, List<String> onIf, List<String> onElse)
+        conditional,
   }) {
     return variable(info, value);
   }
@@ -324,6 +337,8 @@ class _$MakefileEntryVariable implements MakefileEntryVariable {
             MetaInfo info, List<String> prerequisites, List<String> recipe)?
         target,
     TResult Function(List<String> parts)? include,
+    TResult Function(String condition, List<String> onIf, List<String> onElse)?
+        conditional,
   }) {
     return variable?.call(info, value);
   }
@@ -336,6 +351,8 @@ class _$MakefileEntryVariable implements MakefileEntryVariable {
             MetaInfo info, List<String> prerequisites, List<String> recipe)?
         target,
     TResult Function(List<String> parts)? include,
+    TResult Function(String condition, List<String> onIf, List<String> onElse)?
+        conditional,
     required TResult orElse(),
   }) {
     if (variable != null) {
@@ -350,6 +367,7 @@ class _$MakefileEntryVariable implements MakefileEntryVariable {
     required TResult Function(MakefileEntryVariable value) variable,
     required TResult Function(MakefileEntryTarget value) target,
     required TResult Function(MakefileEntryInclude value) include,
+    required TResult Function(MakefileEntryConditional value) conditional,
   }) {
     return variable(this);
   }
@@ -360,6 +378,7 @@ class _$MakefileEntryVariable implements MakefileEntryVariable {
     TResult Function(MakefileEntryVariable value)? variable,
     TResult Function(MakefileEntryTarget value)? target,
     TResult Function(MakefileEntryInclude value)? include,
+    TResult Function(MakefileEntryConditional value)? conditional,
   }) {
     return variable?.call(this);
   }
@@ -370,6 +389,7 @@ class _$MakefileEntryVariable implements MakefileEntryVariable {
     TResult Function(MakefileEntryVariable value)? variable,
     TResult Function(MakefileEntryTarget value)? target,
     TResult Function(MakefileEntryInclude value)? include,
+    TResult Function(MakefileEntryConditional value)? conditional,
     required TResult orElse(),
   }) {
     if (variable != null) {
@@ -505,6 +525,9 @@ class _$MakefileEntryTarget implements MakefileEntryTarget {
             MetaInfo info, List<String> prerequisites, List<String> recipe)
         target,
     required TResult Function(List<String> parts) include,
+    required TResult Function(
+            String condition, List<String> onIf, List<String> onElse)
+        conditional,
   }) {
     return target(info, prerequisites, recipe);
   }
@@ -517,6 +540,8 @@ class _$MakefileEntryTarget implements MakefileEntryTarget {
             MetaInfo info, List<String> prerequisites, List<String> recipe)?
         target,
     TResult Function(List<String> parts)? include,
+    TResult Function(String condition, List<String> onIf, List<String> onElse)?
+        conditional,
   }) {
     return target?.call(info, prerequisites, recipe);
   }
@@ -529,6 +554,8 @@ class _$MakefileEntryTarget implements MakefileEntryTarget {
             MetaInfo info, List<String> prerequisites, List<String> recipe)?
         target,
     TResult Function(List<String> parts)? include,
+    TResult Function(String condition, List<String> onIf, List<String> onElse)?
+        conditional,
     required TResult orElse(),
   }) {
     if (target != null) {
@@ -543,6 +570,7 @@ class _$MakefileEntryTarget implements MakefileEntryTarget {
     required TResult Function(MakefileEntryVariable value) variable,
     required TResult Function(MakefileEntryTarget value) target,
     required TResult Function(MakefileEntryInclude value) include,
+    required TResult Function(MakefileEntryConditional value) conditional,
   }) {
     return target(this);
   }
@@ -553,6 +581,7 @@ class _$MakefileEntryTarget implements MakefileEntryTarget {
     TResult Function(MakefileEntryVariable value)? variable,
     TResult Function(MakefileEntryTarget value)? target,
     TResult Function(MakefileEntryInclude value)? include,
+    TResult Function(MakefileEntryConditional value)? conditional,
   }) {
     return target?.call(this);
   }
@@ -563,6 +592,7 @@ class _$MakefileEntryTarget implements MakefileEntryTarget {
     TResult Function(MakefileEntryVariable value)? variable,
     TResult Function(MakefileEntryTarget value)? target,
     TResult Function(MakefileEntryInclude value)? include,
+    TResult Function(MakefileEntryConditional value)? conditional,
     required TResult orElse(),
   }) {
     if (target != null) {
@@ -662,6 +692,9 @@ class _$MakefileEntryInclude implements MakefileEntryInclude {
             MetaInfo info, List<String> prerequisites, List<String> recipe)
         target,
     required TResult Function(List<String> parts) include,
+    required TResult Function(
+            String condition, List<String> onIf, List<String> onElse)
+        conditional,
   }) {
     return include(parts);
   }
@@ -674,6 +707,8 @@ class _$MakefileEntryInclude implements MakefileEntryInclude {
             MetaInfo info, List<String> prerequisites, List<String> recipe)?
         target,
     TResult Function(List<String> parts)? include,
+    TResult Function(String condition, List<String> onIf, List<String> onElse)?
+        conditional,
   }) {
     return include?.call(parts);
   }
@@ -686,6 +721,8 @@ class _$MakefileEntryInclude implements MakefileEntryInclude {
             MetaInfo info, List<String> prerequisites, List<String> recipe)?
         target,
     TResult Function(List<String> parts)? include,
+    TResult Function(String condition, List<String> onIf, List<String> onElse)?
+        conditional,
     required TResult orElse(),
   }) {
     if (include != null) {
@@ -700,6 +737,7 @@ class _$MakefileEntryInclude implements MakefileEntryInclude {
     required TResult Function(MakefileEntryVariable value) variable,
     required TResult Function(MakefileEntryTarget value) target,
     required TResult Function(MakefileEntryInclude value) include,
+    required TResult Function(MakefileEntryConditional value) conditional,
   }) {
     return include(this);
   }
@@ -710,6 +748,7 @@ class _$MakefileEntryInclude implements MakefileEntryInclude {
     TResult Function(MakefileEntryVariable value)? variable,
     TResult Function(MakefileEntryTarget value)? target,
     TResult Function(MakefileEntryInclude value)? include,
+    TResult Function(MakefileEntryConditional value)? conditional,
   }) {
     return include?.call(this);
   }
@@ -720,6 +759,7 @@ class _$MakefileEntryInclude implements MakefileEntryInclude {
     TResult Function(MakefileEntryVariable value)? variable,
     TResult Function(MakefileEntryTarget value)? target,
     TResult Function(MakefileEntryInclude value)? include,
+    TResult Function(MakefileEntryConditional value)? conditional,
     required TResult orElse(),
   }) {
     if (include != null) {
@@ -737,4 +777,201 @@ abstract class MakefileEntryInclude implements MakefileEntry {
   @JsonKey(ignore: true)
   _$$MakefileEntryIncludeCopyWith<_$MakefileEntryInclude> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$MakefileEntryConditionalCopyWith<$Res> {
+  factory _$$MakefileEntryConditionalCopyWith(_$MakefileEntryConditional value,
+          $Res Function(_$MakefileEntryConditional) then) =
+      __$$MakefileEntryConditionalCopyWithImpl<$Res>;
+  $Res call({String condition, List<String> onIf, List<String> onElse});
+}
+
+/// @nodoc
+class __$$MakefileEntryConditionalCopyWithImpl<$Res>
+    extends _$MakefileEntryCopyWithImpl<$Res>
+    implements _$$MakefileEntryConditionalCopyWith<$Res> {
+  __$$MakefileEntryConditionalCopyWithImpl(_$MakefileEntryConditional _value,
+      $Res Function(_$MakefileEntryConditional) _then)
+      : super(_value, (v) => _then(v as _$MakefileEntryConditional));
+
+  @override
+  _$MakefileEntryConditional get _value =>
+      super._value as _$MakefileEntryConditional;
+
+  @override
+  $Res call({
+    Object? condition = freezed,
+    Object? onIf = freezed,
+    Object? onElse = freezed,
+  }) {
+    return _then(_$MakefileEntryConditional(
+      condition: condition == freezed
+          ? _value.condition
+          : condition // ignore: cast_nullable_to_non_nullable
+              as String,
+      onIf: onIf == freezed
+          ? _value._onIf
+          : onIf // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      onElse: onElse == freezed
+          ? _value._onElse
+          : onElse // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$MakefileEntryConditional implements MakefileEntryConditional {
+  const _$MakefileEntryConditional(
+      {required this.condition,
+      required final List<String> onIf,
+      required final List<String> onElse})
+      : _onIf = onIf,
+        _onElse = onElse;
+
+  @override
+  final String condition;
+  final List<String> _onIf;
+  @override
+  List<String> get onIf {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_onIf);
+  }
+
+  final List<String> _onElse;
+  @override
+  List<String> get onElse {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_onElse);
+  }
+
+  @override
+  String toString() {
+    return 'MakefileEntry.conditional(condition: $condition, onIf: $onIf, onElse: $onElse)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MakefileEntryConditional &&
+            const DeepCollectionEquality().equals(other.condition, condition) &&
+            const DeepCollectionEquality().equals(other._onIf, _onIf) &&
+            const DeepCollectionEquality().equals(other._onElse, _onElse));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(condition),
+      const DeepCollectionEquality().hash(_onIf),
+      const DeepCollectionEquality().hash(_onElse));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$MakefileEntryConditionalCopyWith<_$MakefileEntryConditional>
+      get copyWith =>
+          __$$MakefileEntryConditionalCopyWithImpl<_$MakefileEntryConditional>(
+              this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(MetaInfo info, String value) variable,
+    required TResult Function(
+            MetaInfo info, List<String> prerequisites, List<String> recipe)
+        target,
+    required TResult Function(List<String> parts) include,
+    required TResult Function(
+            String condition, List<String> onIf, List<String> onElse)
+        conditional,
+  }) {
+    return conditional(condition, onIf, onElse);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(MetaInfo info, String value)? variable,
+    TResult Function(
+            MetaInfo info, List<String> prerequisites, List<String> recipe)?
+        target,
+    TResult Function(List<String> parts)? include,
+    TResult Function(String condition, List<String> onIf, List<String> onElse)?
+        conditional,
+  }) {
+    return conditional?.call(condition, onIf, onElse);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(MetaInfo info, String value)? variable,
+    TResult Function(
+            MetaInfo info, List<String> prerequisites, List<String> recipe)?
+        target,
+    TResult Function(List<String> parts)? include,
+    TResult Function(String condition, List<String> onIf, List<String> onElse)?
+        conditional,
+    required TResult orElse(),
+  }) {
+    if (conditional != null) {
+      return conditional(condition, onIf, onElse);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(MakefileEntryVariable value) variable,
+    required TResult Function(MakefileEntryTarget value) target,
+    required TResult Function(MakefileEntryInclude value) include,
+    required TResult Function(MakefileEntryConditional value) conditional,
+  }) {
+    return conditional(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(MakefileEntryVariable value)? variable,
+    TResult Function(MakefileEntryTarget value)? target,
+    TResult Function(MakefileEntryInclude value)? include,
+    TResult Function(MakefileEntryConditional value)? conditional,
+  }) {
+    return conditional?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(MakefileEntryVariable value)? variable,
+    TResult Function(MakefileEntryTarget value)? target,
+    TResult Function(MakefileEntryInclude value)? include,
+    TResult Function(MakefileEntryConditional value)? conditional,
+    required TResult orElse(),
+  }) {
+    if (conditional != null) {
+      return conditional(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class MakefileEntryConditional implements MakefileEntry {
+  const factory MakefileEntryConditional(
+      {required final String condition,
+      required final List<String> onIf,
+      required final List<String> onElse}) = _$MakefileEntryConditional;
+
+  String get condition;
+  List<String> get onIf;
+  List<String> get onElse;
+  @JsonKey(ignore: true)
+  _$$MakefileEntryConditionalCopyWith<_$MakefileEntryConditional>
+      get copyWith => throw _privateConstructorUsedError;
 }
