@@ -6,8 +6,6 @@ import 'package:makefile/src/parsing_context.dart';
 import 'package:makefile/src/qualifier.dart';
 import 'package:pure/pure.dart';
 
-/// - if else then
-/// - variables with bodies
 /// - define
 
 class MakefileParser extends StreamTransformerBase<String, MakefileEntry> {
@@ -44,9 +42,10 @@ class MakefileParser extends StreamTransformerBase<String, MakefileEntry> {
     }
 
     void processLine(String line) {
+      final trimmed = line.trim();
       final type = context.state.type;
-      final contains = line.contains;
-      final startsWith = line.startsWith;
+      final contains = trimmed.contains;
+      final startsWith = trimmed.startsWith;
 
       final isComment = startsWith(Qualifier.comment);
       final isVariable = contains(Qualifier.variable);
@@ -57,7 +56,8 @@ class MakefileParser extends StreamTransformerBase<String, MakefileEntry> {
       final isEndif = startsWith(Qualifier.conditionalEndif);
 
       final isStartOfEntry =
-          [isComment, isVariable, isTarget, isInclude, isIfeq].any(id);
+          [isComment, isVariable, isTarget, isInclude, isIfeq].any(id) &&
+              !line.startsWith('\t');
 
       void workOnParts(
         Pattern qualifier,
@@ -66,7 +66,7 @@ class MakefileParser extends StreamTransformerBase<String, MakefileEntry> {
       ) {
         setType(type);
         body(
-          _extractParts(qualifier, line),
+          _extractParts(qualifier, trimmed),
         );
       }
 
@@ -74,7 +74,7 @@ class MakefileParser extends StreamTransformerBase<String, MakefileEntry> {
         finishEntry();
       }
       if (isComment) {
-        context.addComment(line.replaceAll(Qualifier.comment, '').trim());
+        context.addComment(trimmed.replaceAll(Qualifier.comment, '').trim());
       } else if (isVariable) {
         workOnParts(
           Qualifier.variable,
@@ -123,12 +123,12 @@ class MakefileParser extends StreamTransformerBase<String, MakefileEntry> {
               conditionalElse: context.addElseLine,
               conditionalEndif: null,
             )
-            ?.call(line);
+            ?.call(trimmed);
       }
     }
 
     void listener(String line) {
-      if (line.isNotEmpty) processLine(line.trim());
+      if (line.isNotEmpty) processLine(line);
     }
 
     Future<void> onCancel() async {
