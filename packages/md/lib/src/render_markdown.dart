@@ -2,7 +2,7 @@ import 'package:md/src/context.dart';
 import 'package:md/src/markdown.dart';
 import 'package:pure/pure.dart';
 
-Iterable<Object> _renderAsListEntry(
+Iterable<String> _renderAsListEntry(
   Context context,
   Iterable<String> Function() write,
 ) sync* {
@@ -17,7 +17,7 @@ Iterable<Object> _renderAsListEntry(
   yield* write();
 }
 
-Iterable<Object> _renderText(
+Iterable<String> _renderText(
   Context context,
   String text,
   TextStyle? style,
@@ -39,7 +39,7 @@ Iterable<Object> _renderText(
   );
 }
 
-Iterable<Object> _renderSection(
+Iterable<String> _renderSection(
   Context context,
   String header,
   List<Markdown> children,
@@ -59,7 +59,7 @@ Iterable<Object> _renderSection(
   yield '\n';
 }
 
-Iterable<Object> _renderList(
+Iterable<String> _renderList(
   Context context,
   ListStyle style,
   List<Markdown> entries,
@@ -84,7 +84,7 @@ Iterable<Object> _renderList(
   }
 }
 
-Iterable<Object> _renderLink(
+Iterable<String> _renderLink(
   Context context,
   String label,
   String destination,
@@ -108,7 +108,7 @@ Iterable<String> _renderCode(
   yield '```';
 }
 
-Iterable<Object> _render(Context context, Markdown node) => node.when(
+Iterable<String> _render(Context context, Markdown node) => node.when(
       text: _renderText.apply(context),
       section: _renderSection.apply(context),
       list: _renderList.apply(context),
@@ -116,10 +116,15 @@ Iterable<Object> _render(Context context, Markdown node) => node.when(
       code: _renderCode,
     );
 
+Iterable<String> renderMarkdownByLine(Markdown node) => _render(
+      const Context(),
+      node,
+    );
+
 String renderMarkdown(Markdown node) {
   final buffer = StringBuffer();
 
-  _render(const Context(), node).pipe(buffer.writeAll);
+  renderMarkdownByLine(node).pipe(buffer.writeAll);
 
   return buffer.toString();
 }
