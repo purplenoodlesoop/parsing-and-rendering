@@ -47,6 +47,7 @@ class MakefileParser extends StreamTransformerBase<String, Makefile> {
       final contains = trimmed.contains;
       final startsWith = trimmed.startsWith;
 
+      final isTopLevel = !line.startsWith('\t');
       final isComment = startsWith(Qualifier.comment);
       final isVariable = contains(Qualifier.variable);
       final isTarget = contains(Qualifier.target);
@@ -56,8 +57,7 @@ class MakefileParser extends StreamTransformerBase<String, Makefile> {
       final isEndif = startsWith(Qualifier.conditionalEndif);
 
       final isStartOfEntry =
-          [isComment, isVariable, isTarget, isInclude, isIfeq].any(id) &&
-              !line.startsWith('\t');
+          [isComment, isVariable, isTarget, isInclude, isIfeq].any(id);
 
       void workOnParts(
         Pattern qualifier,
@@ -70,49 +70,51 @@ class MakefileParser extends StreamTransformerBase<String, Makefile> {
         );
       }
 
-      if (type != null && isStartOfEntry) {
-        finishEntry();
-      }
-      if (isComment) {
-        context.addComment(trimmed.replaceAll(Qualifier.comment, '').trim());
-      } else if (isVariable) {
-        workOnParts(
-          Qualifier.variable,
-          EntryType.variable,
-          (parts) => context
-            ..setName(parts.elementAt(0))
-            ..setValue(parts.elementAt(1)),
-        );
-      } else if (isTarget) {
-        workOnParts(
-          Qualifier.target,
-          EntryType.target,
-          (parts) => context
-            ..setName(parts.elementAt(0))
-            ..setPrerequisites(parts.elementAt(1).split(' ')),
-        );
-      } else if (isInclude) {
-        workOnParts(
-          Qualifier.include,
-          EntryType.include,
-          (parts) => context.setIncludeParts(parts.last.split(' ')),
-        );
-      } else if (isIfeq) {
-        workOnParts(
-          Qualifier.conditionalIfeq,
-          EntryType.conditionalIfeq,
-          (parts) {
-            final trimmed = parts.last.trim();
+      if (isTopLevel) {
+        if (type != null && isStartOfEntry) {
+          finishEntry();
+        }
+        if (isComment) {
+          context.addComment(trimmed.replaceAll(Qualifier.comment, '').trim());
+        } else if (isVariable) {
+          workOnParts(
+            Qualifier.variable,
+            EntryType.variable,
+            (parts) => context
+              ..setName(parts.elementAt(0))
+              ..setValue(parts.elementAt(1)),
+          );
+        } else if (isTarget) {
+          workOnParts(
+            Qualifier.target,
+            EntryType.target,
+            (parts) => context
+              ..setName(parts.elementAt(0))
+              ..setPrerequisites(parts.elementAt(1).split(' ')),
+          );
+        } else if (isInclude) {
+          workOnParts(
+            Qualifier.include,
+            EntryType.include,
+            (parts) => context.setIncludeParts(parts.last.split(' ')),
+          );
+        } else if (isIfeq) {
+          workOnParts(
+            Qualifier.conditionalIfeq,
+            EntryType.conditionalIfeq,
+            (parts) {
+              final trimmed = parts.last.trim();
 
-            context.setCondition(
-              trimmed.substring(1, trimmed.length - 1),
-            );
-          },
-        );
-      } else if (isElse) {
-        setType(EntryType.conditionalElse);
-      } else if (isEndif) {
-        setType(EntryType.conditionalEndif);
+              context.setCondition(
+                trimmed.substring(1, trimmed.length - 1),
+              );
+            },
+          );
+        } else if (isElse) {
+          setType(EntryType.conditionalElse);
+        } else if (isEndif) {
+          setType(EntryType.conditionalEndif);
+        }
       } else {
         type
             ?.whenConst<void Function(String)?>(

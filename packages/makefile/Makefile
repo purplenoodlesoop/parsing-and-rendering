@@ -19,6 +19,10 @@ else
     @echo '2'
 endif
 
+splash: pub-get
+	@echo "* Generating Splash screens *"
+	@fvm flutter pub run flutter_native_splash:create
+
 # Multi
 # Line
 # Comment
