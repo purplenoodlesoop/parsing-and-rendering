@@ -152,7 +152,7 @@ abstract class _MetaInfo implements MetaInfo {
 }
 
 /// @nodoc
-mixin _$MakefileEntry {
+mixin _$Makefile {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(MetaInfo info, String value) variable,
@@ -190,75 +190,73 @@ mixin _$MakefileEntry {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(MakefileEntryVariable value) variable,
-    required TResult Function(MakefileEntryTarget value) target,
-    required TResult Function(MakefileEntryInclude value) include,
-    required TResult Function(MakefileEntryConditional value) conditional,
+    required TResult Function(MakefileVariable value) variable,
+    required TResult Function(MakefileTarget value) target,
+    required TResult Function(MakefileInclude value) include,
+    required TResult Function(MakefileConditional value) conditional,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(MakefileEntryVariable value)? variable,
-    TResult Function(MakefileEntryTarget value)? target,
-    TResult Function(MakefileEntryInclude value)? include,
-    TResult Function(MakefileEntryConditional value)? conditional,
+    TResult Function(MakefileVariable value)? variable,
+    TResult Function(MakefileTarget value)? target,
+    TResult Function(MakefileInclude value)? include,
+    TResult Function(MakefileConditional value)? conditional,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(MakefileEntryVariable value)? variable,
-    TResult Function(MakefileEntryTarget value)? target,
-    TResult Function(MakefileEntryInclude value)? include,
-    TResult Function(MakefileEntryConditional value)? conditional,
+    TResult Function(MakefileVariable value)? variable,
+    TResult Function(MakefileTarget value)? target,
+    TResult Function(MakefileInclude value)? include,
+    TResult Function(MakefileConditional value)? conditional,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $MakefileEntryCopyWith<$Res> {
-  factory $MakefileEntryCopyWith(
-          MakefileEntry value, $Res Function(MakefileEntry) then) =
-      _$MakefileEntryCopyWithImpl<$Res>;
+abstract class $MakefileCopyWith<$Res> {
+  factory $MakefileCopyWith(Makefile value, $Res Function(Makefile) then) =
+      _$MakefileCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$MakefileEntryCopyWithImpl<$Res>
-    implements $MakefileEntryCopyWith<$Res> {
-  _$MakefileEntryCopyWithImpl(this._value, this._then);
+class _$MakefileCopyWithImpl<$Res> implements $MakefileCopyWith<$Res> {
+  _$MakefileCopyWithImpl(this._value, this._then);
 
-  final MakefileEntry _value;
+  final Makefile _value;
   // ignore: unused_field
-  final $Res Function(MakefileEntry) _then;
+  final $Res Function(Makefile) _then;
 }
 
 /// @nodoc
-abstract class _$$MakefileEntryVariableCopyWith<$Res> {
-  factory _$$MakefileEntryVariableCopyWith(_$MakefileEntryVariable value,
-          $Res Function(_$MakefileEntryVariable) then) =
-      __$$MakefileEntryVariableCopyWithImpl<$Res>;
+abstract class _$$MakefileVariableCopyWith<$Res> {
+  factory _$$MakefileVariableCopyWith(
+          _$MakefileVariable value, $Res Function(_$MakefileVariable) then) =
+      __$$MakefileVariableCopyWithImpl<$Res>;
   $Res call({MetaInfo info, String value});
 
   $MetaInfoCopyWith<$Res> get info;
 }
 
 /// @nodoc
-class __$$MakefileEntryVariableCopyWithImpl<$Res>
-    extends _$MakefileEntryCopyWithImpl<$Res>
-    implements _$$MakefileEntryVariableCopyWith<$Res> {
-  __$$MakefileEntryVariableCopyWithImpl(_$MakefileEntryVariable _value,
-      $Res Function(_$MakefileEntryVariable) _then)
-      : super(_value, (v) => _then(v as _$MakefileEntryVariable));
+class __$$MakefileVariableCopyWithImpl<$Res>
+    extends _$MakefileCopyWithImpl<$Res>
+    implements _$$MakefileVariableCopyWith<$Res> {
+  __$$MakefileVariableCopyWithImpl(
+      _$MakefileVariable _value, $Res Function(_$MakefileVariable) _then)
+      : super(_value, (v) => _then(v as _$MakefileVariable));
 
   @override
-  _$MakefileEntryVariable get _value => super._value as _$MakefileEntryVariable;
+  _$MakefileVariable get _value => super._value as _$MakefileVariable;
 
   @override
   $Res call({
     Object? info = freezed,
     Object? value = freezed,
   }) {
-    return _then(_$MakefileEntryVariable(
+    return _then(_$MakefileVariable(
       info: info == freezed
           ? _value.info
           : info // ignore: cast_nullable_to_non_nullable
@@ -280,8 +278,8 @@ class __$$MakefileEntryVariableCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$MakefileEntryVariable implements MakefileEntryVariable {
-  const _$MakefileEntryVariable({required this.info, required this.value});
+class _$MakefileVariable implements MakefileVariable {
+  const _$MakefileVariable({required this.info, required this.value});
 
   @override
   final MetaInfo info;
@@ -290,14 +288,14 @@ class _$MakefileEntryVariable implements MakefileEntryVariable {
 
   @override
   String toString() {
-    return 'MakefileEntry.variable(info: $info, value: $value)';
+    return 'Makefile.variable(info: $info, value: $value)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$MakefileEntryVariable &&
+            other is _$MakefileVariable &&
             const DeepCollectionEquality().equals(other.info, info) &&
             const DeepCollectionEquality().equals(other.value, value));
   }
@@ -310,9 +308,8 @@ class _$MakefileEntryVariable implements MakefileEntryVariable {
 
   @JsonKey(ignore: true)
   @override
-  _$$MakefileEntryVariableCopyWith<_$MakefileEntryVariable> get copyWith =>
-      __$$MakefileEntryVariableCopyWithImpl<_$MakefileEntryVariable>(
-          this, _$identity);
+  _$$MakefileVariableCopyWith<_$MakefileVariable> get copyWith =>
+      __$$MakefileVariableCopyWithImpl<_$MakefileVariable>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -364,10 +361,10 @@ class _$MakefileEntryVariable implements MakefileEntryVariable {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(MakefileEntryVariable value) variable,
-    required TResult Function(MakefileEntryTarget value) target,
-    required TResult Function(MakefileEntryInclude value) include,
-    required TResult Function(MakefileEntryConditional value) conditional,
+    required TResult Function(MakefileVariable value) variable,
+    required TResult Function(MakefileTarget value) target,
+    required TResult Function(MakefileInclude value) include,
+    required TResult Function(MakefileConditional value) conditional,
   }) {
     return variable(this);
   }
@@ -375,10 +372,10 @@ class _$MakefileEntryVariable implements MakefileEntryVariable {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(MakefileEntryVariable value)? variable,
-    TResult Function(MakefileEntryTarget value)? target,
-    TResult Function(MakefileEntryInclude value)? include,
-    TResult Function(MakefileEntryConditional value)? conditional,
+    TResult Function(MakefileVariable value)? variable,
+    TResult Function(MakefileTarget value)? target,
+    TResult Function(MakefileInclude value)? include,
+    TResult Function(MakefileConditional value)? conditional,
   }) {
     return variable?.call(this);
   }
@@ -386,10 +383,10 @@ class _$MakefileEntryVariable implements MakefileEntryVariable {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(MakefileEntryVariable value)? variable,
-    TResult Function(MakefileEntryTarget value)? target,
-    TResult Function(MakefileEntryInclude value)? include,
-    TResult Function(MakefileEntryConditional value)? conditional,
+    TResult Function(MakefileVariable value)? variable,
+    TResult Function(MakefileTarget value)? target,
+    TResult Function(MakefileInclude value)? include,
+    TResult Function(MakefileConditional value)? conditional,
     required TResult orElse(),
   }) {
     if (variable != null) {
@@ -399,38 +396,37 @@ class _$MakefileEntryVariable implements MakefileEntryVariable {
   }
 }
 
-abstract class MakefileEntryVariable implements MakefileEntry {
-  const factory MakefileEntryVariable(
+abstract class MakefileVariable implements Makefile {
+  const factory MakefileVariable(
       {required final MetaInfo info,
-      required final String value}) = _$MakefileEntryVariable;
+      required final String value}) = _$MakefileVariable;
 
   MetaInfo get info;
   String get value;
   @JsonKey(ignore: true)
-  _$$MakefileEntryVariableCopyWith<_$MakefileEntryVariable> get copyWith =>
+  _$$MakefileVariableCopyWith<_$MakefileVariable> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$MakefileEntryTargetCopyWith<$Res> {
-  factory _$$MakefileEntryTargetCopyWith(_$MakefileEntryTarget value,
-          $Res Function(_$MakefileEntryTarget) then) =
-      __$$MakefileEntryTargetCopyWithImpl<$Res>;
+abstract class _$$MakefileTargetCopyWith<$Res> {
+  factory _$$MakefileTargetCopyWith(
+          _$MakefileTarget value, $Res Function(_$MakefileTarget) then) =
+      __$$MakefileTargetCopyWithImpl<$Res>;
   $Res call({MetaInfo info, List<String> prerequisites, List<String> recipe});
 
   $MetaInfoCopyWith<$Res> get info;
 }
 
 /// @nodoc
-class __$$MakefileEntryTargetCopyWithImpl<$Res>
-    extends _$MakefileEntryCopyWithImpl<$Res>
-    implements _$$MakefileEntryTargetCopyWith<$Res> {
-  __$$MakefileEntryTargetCopyWithImpl(
-      _$MakefileEntryTarget _value, $Res Function(_$MakefileEntryTarget) _then)
-      : super(_value, (v) => _then(v as _$MakefileEntryTarget));
+class __$$MakefileTargetCopyWithImpl<$Res> extends _$MakefileCopyWithImpl<$Res>
+    implements _$$MakefileTargetCopyWith<$Res> {
+  __$$MakefileTargetCopyWithImpl(
+      _$MakefileTarget _value, $Res Function(_$MakefileTarget) _then)
+      : super(_value, (v) => _then(v as _$MakefileTarget));
 
   @override
-  _$MakefileEntryTarget get _value => super._value as _$MakefileEntryTarget;
+  _$MakefileTarget get _value => super._value as _$MakefileTarget;
 
   @override
   $Res call({
@@ -438,7 +434,7 @@ class __$$MakefileEntryTargetCopyWithImpl<$Res>
     Object? prerequisites = freezed,
     Object? recipe = freezed,
   }) {
-    return _then(_$MakefileEntryTarget(
+    return _then(_$MakefileTarget(
       info: info == freezed
           ? _value.info
           : info // ignore: cast_nullable_to_non_nullable
@@ -464,8 +460,8 @@ class __$$MakefileEntryTargetCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$MakefileEntryTarget implements MakefileEntryTarget {
-  const _$MakefileEntryTarget(
+class _$MakefileTarget implements MakefileTarget {
+  const _$MakefileTarget(
       {required this.info,
       required final List<String> prerequisites,
       required final List<String> recipe})
@@ -490,14 +486,14 @@ class _$MakefileEntryTarget implements MakefileEntryTarget {
 
   @override
   String toString() {
-    return 'MakefileEntry.target(info: $info, prerequisites: $prerequisites, recipe: $recipe)';
+    return 'Makefile.target(info: $info, prerequisites: $prerequisites, recipe: $recipe)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$MakefileEntryTarget &&
+            other is _$MakefileTarget &&
             const DeepCollectionEquality().equals(other.info, info) &&
             const DeepCollectionEquality()
                 .equals(other._prerequisites, _prerequisites) &&
@@ -513,9 +509,8 @@ class _$MakefileEntryTarget implements MakefileEntryTarget {
 
   @JsonKey(ignore: true)
   @override
-  _$$MakefileEntryTargetCopyWith<_$MakefileEntryTarget> get copyWith =>
-      __$$MakefileEntryTargetCopyWithImpl<_$MakefileEntryTarget>(
-          this, _$identity);
+  _$$MakefileTargetCopyWith<_$MakefileTarget> get copyWith =>
+      __$$MakefileTargetCopyWithImpl<_$MakefileTarget>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -567,10 +562,10 @@ class _$MakefileEntryTarget implements MakefileEntryTarget {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(MakefileEntryVariable value) variable,
-    required TResult Function(MakefileEntryTarget value) target,
-    required TResult Function(MakefileEntryInclude value) include,
-    required TResult Function(MakefileEntryConditional value) conditional,
+    required TResult Function(MakefileVariable value) variable,
+    required TResult Function(MakefileTarget value) target,
+    required TResult Function(MakefileInclude value) include,
+    required TResult Function(MakefileConditional value) conditional,
   }) {
     return target(this);
   }
@@ -578,10 +573,10 @@ class _$MakefileEntryTarget implements MakefileEntryTarget {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(MakefileEntryVariable value)? variable,
-    TResult Function(MakefileEntryTarget value)? target,
-    TResult Function(MakefileEntryInclude value)? include,
-    TResult Function(MakefileEntryConditional value)? conditional,
+    TResult Function(MakefileVariable value)? variable,
+    TResult Function(MakefileTarget value)? target,
+    TResult Function(MakefileInclude value)? include,
+    TResult Function(MakefileConditional value)? conditional,
   }) {
     return target?.call(this);
   }
@@ -589,10 +584,10 @@ class _$MakefileEntryTarget implements MakefileEntryTarget {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(MakefileEntryVariable value)? variable,
-    TResult Function(MakefileEntryTarget value)? target,
-    TResult Function(MakefileEntryInclude value)? include,
-    TResult Function(MakefileEntryConditional value)? conditional,
+    TResult Function(MakefileVariable value)? variable,
+    TResult Function(MakefileTarget value)? target,
+    TResult Function(MakefileInclude value)? include,
+    TResult Function(MakefileConditional value)? conditional,
     required TResult orElse(),
   }) {
     if (target != null) {
@@ -602,44 +597,43 @@ class _$MakefileEntryTarget implements MakefileEntryTarget {
   }
 }
 
-abstract class MakefileEntryTarget implements MakefileEntry {
-  const factory MakefileEntryTarget(
+abstract class MakefileTarget implements Makefile {
+  const factory MakefileTarget(
       {required final MetaInfo info,
       required final List<String> prerequisites,
-      required final List<String> recipe}) = _$MakefileEntryTarget;
+      required final List<String> recipe}) = _$MakefileTarget;
 
   MetaInfo get info;
   List<String> get prerequisites;
   List<String> get recipe;
   @JsonKey(ignore: true)
-  _$$MakefileEntryTargetCopyWith<_$MakefileEntryTarget> get copyWith =>
+  _$$MakefileTargetCopyWith<_$MakefileTarget> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$MakefileEntryIncludeCopyWith<$Res> {
-  factory _$$MakefileEntryIncludeCopyWith(_$MakefileEntryInclude value,
-          $Res Function(_$MakefileEntryInclude) then) =
-      __$$MakefileEntryIncludeCopyWithImpl<$Res>;
+abstract class _$$MakefileIncludeCopyWith<$Res> {
+  factory _$$MakefileIncludeCopyWith(
+          _$MakefileInclude value, $Res Function(_$MakefileInclude) then) =
+      __$$MakefileIncludeCopyWithImpl<$Res>;
   $Res call({List<String> parts});
 }
 
 /// @nodoc
-class __$$MakefileEntryIncludeCopyWithImpl<$Res>
-    extends _$MakefileEntryCopyWithImpl<$Res>
-    implements _$$MakefileEntryIncludeCopyWith<$Res> {
-  __$$MakefileEntryIncludeCopyWithImpl(_$MakefileEntryInclude _value,
-      $Res Function(_$MakefileEntryInclude) _then)
-      : super(_value, (v) => _then(v as _$MakefileEntryInclude));
+class __$$MakefileIncludeCopyWithImpl<$Res> extends _$MakefileCopyWithImpl<$Res>
+    implements _$$MakefileIncludeCopyWith<$Res> {
+  __$$MakefileIncludeCopyWithImpl(
+      _$MakefileInclude _value, $Res Function(_$MakefileInclude) _then)
+      : super(_value, (v) => _then(v as _$MakefileInclude));
 
   @override
-  _$MakefileEntryInclude get _value => super._value as _$MakefileEntryInclude;
+  _$MakefileInclude get _value => super._value as _$MakefileInclude;
 
   @override
   $Res call({
     Object? parts = freezed,
   }) {
-    return _then(_$MakefileEntryInclude(
+    return _then(_$MakefileInclude(
       parts: parts == freezed
           ? _value._parts
           : parts // ignore: cast_nullable_to_non_nullable
@@ -650,9 +644,8 @@ class __$$MakefileEntryIncludeCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$MakefileEntryInclude implements MakefileEntryInclude {
-  const _$MakefileEntryInclude({required final List<String> parts})
-      : _parts = parts;
+class _$MakefileInclude implements MakefileInclude {
+  const _$MakefileInclude({required final List<String> parts}) : _parts = parts;
 
   final List<String> _parts;
   @override
@@ -663,14 +656,14 @@ class _$MakefileEntryInclude implements MakefileEntryInclude {
 
   @override
   String toString() {
-    return 'MakefileEntry.include(parts: $parts)';
+    return 'Makefile.include(parts: $parts)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$MakefileEntryInclude &&
+            other is _$MakefileInclude &&
             const DeepCollectionEquality().equals(other._parts, _parts));
   }
 
@@ -680,9 +673,8 @@ class _$MakefileEntryInclude implements MakefileEntryInclude {
 
   @JsonKey(ignore: true)
   @override
-  _$$MakefileEntryIncludeCopyWith<_$MakefileEntryInclude> get copyWith =>
-      __$$MakefileEntryIncludeCopyWithImpl<_$MakefileEntryInclude>(
-          this, _$identity);
+  _$$MakefileIncludeCopyWith<_$MakefileInclude> get copyWith =>
+      __$$MakefileIncludeCopyWithImpl<_$MakefileInclude>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -734,10 +726,10 @@ class _$MakefileEntryInclude implements MakefileEntryInclude {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(MakefileEntryVariable value) variable,
-    required TResult Function(MakefileEntryTarget value) target,
-    required TResult Function(MakefileEntryInclude value) include,
-    required TResult Function(MakefileEntryConditional value) conditional,
+    required TResult Function(MakefileVariable value) variable,
+    required TResult Function(MakefileTarget value) target,
+    required TResult Function(MakefileInclude value) include,
+    required TResult Function(MakefileConditional value) conditional,
   }) {
     return include(this);
   }
@@ -745,10 +737,10 @@ class _$MakefileEntryInclude implements MakefileEntryInclude {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(MakefileEntryVariable value)? variable,
-    TResult Function(MakefileEntryTarget value)? target,
-    TResult Function(MakefileEntryInclude value)? include,
-    TResult Function(MakefileEntryConditional value)? conditional,
+    TResult Function(MakefileVariable value)? variable,
+    TResult Function(MakefileTarget value)? target,
+    TResult Function(MakefileInclude value)? include,
+    TResult Function(MakefileConditional value)? conditional,
   }) {
     return include?.call(this);
   }
@@ -756,10 +748,10 @@ class _$MakefileEntryInclude implements MakefileEntryInclude {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(MakefileEntryVariable value)? variable,
-    TResult Function(MakefileEntryTarget value)? target,
-    TResult Function(MakefileEntryInclude value)? include,
-    TResult Function(MakefileEntryConditional value)? conditional,
+    TResult Function(MakefileVariable value)? variable,
+    TResult Function(MakefileTarget value)? target,
+    TResult Function(MakefileInclude value)? include,
+    TResult Function(MakefileConditional value)? conditional,
     required TResult orElse(),
   }) {
     if (include != null) {
@@ -769,35 +761,34 @@ class _$MakefileEntryInclude implements MakefileEntryInclude {
   }
 }
 
-abstract class MakefileEntryInclude implements MakefileEntry {
-  const factory MakefileEntryInclude({required final List<String> parts}) =
-      _$MakefileEntryInclude;
+abstract class MakefileInclude implements Makefile {
+  const factory MakefileInclude({required final List<String> parts}) =
+      _$MakefileInclude;
 
   List<String> get parts;
   @JsonKey(ignore: true)
-  _$$MakefileEntryIncludeCopyWith<_$MakefileEntryInclude> get copyWith =>
+  _$$MakefileIncludeCopyWith<_$MakefileInclude> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$MakefileEntryConditionalCopyWith<$Res> {
-  factory _$$MakefileEntryConditionalCopyWith(_$MakefileEntryConditional value,
-          $Res Function(_$MakefileEntryConditional) then) =
-      __$$MakefileEntryConditionalCopyWithImpl<$Res>;
+abstract class _$$MakefileConditionalCopyWith<$Res> {
+  factory _$$MakefileConditionalCopyWith(_$MakefileConditional value,
+          $Res Function(_$MakefileConditional) then) =
+      __$$MakefileConditionalCopyWithImpl<$Res>;
   $Res call({String condition, List<String> onIf, List<String> onElse});
 }
 
 /// @nodoc
-class __$$MakefileEntryConditionalCopyWithImpl<$Res>
-    extends _$MakefileEntryCopyWithImpl<$Res>
-    implements _$$MakefileEntryConditionalCopyWith<$Res> {
-  __$$MakefileEntryConditionalCopyWithImpl(_$MakefileEntryConditional _value,
-      $Res Function(_$MakefileEntryConditional) _then)
-      : super(_value, (v) => _then(v as _$MakefileEntryConditional));
+class __$$MakefileConditionalCopyWithImpl<$Res>
+    extends _$MakefileCopyWithImpl<$Res>
+    implements _$$MakefileConditionalCopyWith<$Res> {
+  __$$MakefileConditionalCopyWithImpl(
+      _$MakefileConditional _value, $Res Function(_$MakefileConditional) _then)
+      : super(_value, (v) => _then(v as _$MakefileConditional));
 
   @override
-  _$MakefileEntryConditional get _value =>
-      super._value as _$MakefileEntryConditional;
+  _$MakefileConditional get _value => super._value as _$MakefileConditional;
 
   @override
   $Res call({
@@ -805,7 +796,7 @@ class __$$MakefileEntryConditionalCopyWithImpl<$Res>
     Object? onIf = freezed,
     Object? onElse = freezed,
   }) {
-    return _then(_$MakefileEntryConditional(
+    return _then(_$MakefileConditional(
       condition: condition == freezed
           ? _value.condition
           : condition // ignore: cast_nullable_to_non_nullable
@@ -824,8 +815,8 @@ class __$$MakefileEntryConditionalCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$MakefileEntryConditional implements MakefileEntryConditional {
-  const _$MakefileEntryConditional(
+class _$MakefileConditional implements MakefileConditional {
+  const _$MakefileConditional(
       {required this.condition,
       required final List<String> onIf,
       required final List<String> onElse})
@@ -850,14 +841,14 @@ class _$MakefileEntryConditional implements MakefileEntryConditional {
 
   @override
   String toString() {
-    return 'MakefileEntry.conditional(condition: $condition, onIf: $onIf, onElse: $onElse)';
+    return 'Makefile.conditional(condition: $condition, onIf: $onIf, onElse: $onElse)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$MakefileEntryConditional &&
+            other is _$MakefileConditional &&
             const DeepCollectionEquality().equals(other.condition, condition) &&
             const DeepCollectionEquality().equals(other._onIf, _onIf) &&
             const DeepCollectionEquality().equals(other._onElse, _onElse));
@@ -872,10 +863,9 @@ class _$MakefileEntryConditional implements MakefileEntryConditional {
 
   @JsonKey(ignore: true)
   @override
-  _$$MakefileEntryConditionalCopyWith<_$MakefileEntryConditional>
-      get copyWith =>
-          __$$MakefileEntryConditionalCopyWithImpl<_$MakefileEntryConditional>(
-              this, _$identity);
+  _$$MakefileConditionalCopyWith<_$MakefileConditional> get copyWith =>
+      __$$MakefileConditionalCopyWithImpl<_$MakefileConditional>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -927,10 +917,10 @@ class _$MakefileEntryConditional implements MakefileEntryConditional {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(MakefileEntryVariable value) variable,
-    required TResult Function(MakefileEntryTarget value) target,
-    required TResult Function(MakefileEntryInclude value) include,
-    required TResult Function(MakefileEntryConditional value) conditional,
+    required TResult Function(MakefileVariable value) variable,
+    required TResult Function(MakefileTarget value) target,
+    required TResult Function(MakefileInclude value) include,
+    required TResult Function(MakefileConditional value) conditional,
   }) {
     return conditional(this);
   }
@@ -938,10 +928,10 @@ class _$MakefileEntryConditional implements MakefileEntryConditional {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(MakefileEntryVariable value)? variable,
-    TResult Function(MakefileEntryTarget value)? target,
-    TResult Function(MakefileEntryInclude value)? include,
-    TResult Function(MakefileEntryConditional value)? conditional,
+    TResult Function(MakefileVariable value)? variable,
+    TResult Function(MakefileTarget value)? target,
+    TResult Function(MakefileInclude value)? include,
+    TResult Function(MakefileConditional value)? conditional,
   }) {
     return conditional?.call(this);
   }
@@ -949,10 +939,10 @@ class _$MakefileEntryConditional implements MakefileEntryConditional {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(MakefileEntryVariable value)? variable,
-    TResult Function(MakefileEntryTarget value)? target,
-    TResult Function(MakefileEntryInclude value)? include,
-    TResult Function(MakefileEntryConditional value)? conditional,
+    TResult Function(MakefileVariable value)? variable,
+    TResult Function(MakefileTarget value)? target,
+    TResult Function(MakefileInclude value)? include,
+    TResult Function(MakefileConditional value)? conditional,
     required TResult orElse(),
   }) {
     if (conditional != null) {
@@ -962,16 +952,16 @@ class _$MakefileEntryConditional implements MakefileEntryConditional {
   }
 }
 
-abstract class MakefileEntryConditional implements MakefileEntry {
-  const factory MakefileEntryConditional(
+abstract class MakefileConditional implements Makefile {
+  const factory MakefileConditional(
       {required final String condition,
       required final List<String> onIf,
-      required final List<String> onElse}) = _$MakefileEntryConditional;
+      required final List<String> onElse}) = _$MakefileConditional;
 
   String get condition;
   List<String> get onIf;
   List<String> get onElse;
   @JsonKey(ignore: true)
-  _$$MakefileEntryConditionalCopyWith<_$MakefileEntryConditional>
-      get copyWith => throw _privateConstructorUsedError;
+  _$$MakefileConditionalCopyWith<_$MakefileConditional> get copyWith =>
+      throw _privateConstructorUsedError;
 }

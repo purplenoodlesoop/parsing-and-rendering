@@ -8,14 +8,14 @@ import 'package:pure/pure.dart';
 
 /// - define
 
-class MakefileParser extends StreamTransformerBase<String, MakefileEntry> {
+class MakefileParser extends StreamTransformerBase<String, Makefile> {
   const MakefileParser();
 
   static Iterable<String> _extractParts(Pattern qualifier, String line) =>
       line.split(qualifier).map((source) => source.trim());
 
   @override
-  Stream<MakefileEntry> bind(Stream<String> stream) {
+  Stream<Makefile> bind(Stream<String> stream) {
     StreamSubscription<String>? subscription;
 
     void onPause() {
@@ -29,8 +29,8 @@ class MakefileParser extends StreamTransformerBase<String, MakefileEntry> {
     final context = ParsingContext();
     final setType = context.setType;
     final controller = stream.isBroadcast
-        ? StreamController<MakefileEntry>.broadcast(sync: true)
-        : StreamController<MakefileEntry>(
+        ? StreamController<Makefile>.broadcast(sync: true)
+        : StreamController<Makefile>(
             sync: true,
             onPause: onPause,
             onResume: onResume,
