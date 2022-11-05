@@ -11,25 +11,25 @@ class MetaInfo with _$MetaInfo {
 }
 
 @freezed
-class MakefileEntry with _$MakefileEntry {
-  const factory MakefileEntry.variable({
+class Makefile with _$Makefile {
+  const factory Makefile.variable({
     required MetaInfo info,
     required String value,
-  }) = MakefileEntryVariable;
+  }) = MakefileVariable;
 
-  const factory MakefileEntry.target({
+  const factory Makefile.target({
     required MetaInfo info,
     required List<String> prerequisites,
     required List<String> recipe,
-  }) = MakefileEntryTarget;
+  }) = MakefileTarget;
 
-  const factory MakefileEntry.include({
+  const factory Makefile.include({
     required List<String> parts,
-  }) = MakefileEntryInclude;
+  }) = MakefileInclude;
 
-  const factory MakefileEntry.conditional({
+  const factory Makefile.conditional({
     required String condition,
     required List<String> onIf,
     required List<String> onElse,
-  }) = MakefileEntryConditional;
+  }) = MakefileConditional;
 }

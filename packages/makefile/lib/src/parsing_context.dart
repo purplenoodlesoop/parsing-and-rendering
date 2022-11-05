@@ -78,26 +78,26 @@ class ParsingContext {
     _state = const ParserState();
   }
 
-  MakefileEntry assembleEntry() {
+  Makefile assembleEntry() {
     assert(_type != null, 'Finished entry without determined context');
     late final info = state.info!;
 
     return _type!.when(
-      variable: () => MakefileEntry.variable(
+      variable: () => Makefile.variable(
         info: info,
         value: state.value!,
       ),
-      target: () => MakefileEntry.target(
+      target: () => Makefile.target(
         info: info,
         prerequisites: state.prerequisites,
         recipe: state.recipe,
       ),
-      include: () => MakefileEntry.include(
+      include: () => Makefile.include(
         parts: state.includeParts,
       ),
       conditionalIfeq: _incorrectAssembly,
       conditionalElse: _incorrectAssembly,
-      conditionalEndif: () => MakefileEntry.conditional(
+      conditionalEndif: () => Makefile.conditional(
         condition: state.condition!,
         onIf: state.onIf,
         onElse: state.onElse,
