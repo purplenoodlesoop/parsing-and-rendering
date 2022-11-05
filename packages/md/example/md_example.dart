@@ -67,5 +67,5 @@ Future<void> main() {
   final example = exampleMarkdown();
   final file = File('./example.md');
 
-  return file.writeAsString(renderNode(example));
+  return file.writeAsString(renderMarkdown(example));
 }

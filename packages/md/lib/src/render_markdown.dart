@@ -116,7 +116,7 @@ Iterable<Object> _render(Context context, Markdown node) => node.when(
       code: _renderCode,
     );
 
-String renderNode(Markdown node) {
+String renderMarkdown(Markdown node) {
   final buffer = StringBuffer();
 
   _render(const Context(), node).pipe(buffer.writeAll);
